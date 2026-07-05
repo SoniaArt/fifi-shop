@@ -1,0 +1,24 @@
+.filter-btn {
+    border: none;
+    background: #FDFDFE;
+}
+
+.filter-btn:hover {
+    color: #5f5f5f;
+}
+
+.filter-btn.dropdown-toggle::after {
+    display: none !important;
+}
+
+.filter-btn.dropdown-toggle svg {
+    transition: transform 0.3s ease;
+}
+
+.filter-btn.dropdown-toggle[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+}
+
+body, main {
+    background: #FDFDFE;
+}
