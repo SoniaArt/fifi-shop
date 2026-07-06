@@ -6,7 +6,7 @@ class Product {
         $this->pdo = $pdo;
     }
     
-    public function getAll($sort = 'newest') {
+    public function getAll( $sort = 'newest', $categories = [], $colors = [], $sizes = [] ) {
         switch ($sort) {
             case 'price_asc':
                 $orderBy = 'price ASC';
@@ -19,9 +19,84 @@ class Product {
                 $orderBy = 'created_at DESC';
                 break;
         }
+
+        $sql = "
+            SELECT p.*
+            FROM products p
+            WHERE 1=1
+        ";
+
+        $params = [];
+
+        if (!empty($categories)) {
+            $placeholders = [];
+
+            foreach ($categories as $category) {
+                $placeholders[] = '?';
+                $params[] = $category;
+            }
+
+            $sql .= "
+                AND p.category IN (" . implode(',', $placeholders) . ")
+            ";
+        }
+
+        if (!empty($colors)) {
+            $placeholders = [];
+
+            foreach ($colors as $color) {
+                $placeholders[] = '?';
+                $params[] = $color;
+            }
+
+            $sql .= "
+                AND p.color IN (" . implode(',', $placeholders) . ")
+            ";
+        }
         
-        $stmt = $this->pdo->query("SELECT * FROM products ORDER BY CASE WHEN quantity > 0 THEN 0 ELSE 1 END, $orderBy");
-        return $stmt->fetchAll();
+        if (!empty($sizes)) {
+
+            $placeholders = [];
+
+            foreach ($sizes as $size) {
+                $placeholders[] = '?';
+                $params[] = $size;
+            }
+            
+        $sql .= "
+            AND EXISTS (
+                SELECT 1
+                FROM product_sizes ps
+                WHERE ps.product_id = p.id
+                AND ps.size IN (" . implode(',', $placeholders) . ")
+            )
+        ";
+        }    
+        
+        $sql .= "
+            ORDER BY
+                CASE
+                    WHEN p.quantity > 0 THEN 0
+                    ELSE 1
+                END,
+                $orderBy
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+
+        $products = $stmt->fetchAll();
+
+        foreach ($products as &$product) {
+            $sizes = $this->getSizes($product['id']);
+            $product['sizes'] = [];
+
+            foreach ($sizes as $size) {
+                $product['sizes'][] = $size['size'];
+            }
+        }
+
+        return $products;
     }
 
     public function getById($id) {
@@ -75,7 +150,7 @@ class Product {
                 END
         ");
         $stmt->execute([$productId]);
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getSortLabel($sort) {

@@ -48,7 +48,7 @@ $sortLabel = $productModel->getSortLabel($sort);
             <div id="filterSizes" class="filter-group d-flex flex-column justify-content-beetwen gap-3">
             </div>
         </div>
-        
+
         <div class="filter-footer d-flex flex-column justify-content-center gap-3">
                 <button class="btn btn-outline-dark" id="resetFilters">Сбросить</button>
                 <button class="btn btn-dark" id="applyFilters">Применить</button>
@@ -89,6 +89,5 @@ $sortLabel = $productModel->getSortLabel($sort);
     </main>
 
     <?php include '../includes/footer.php';?>
-    <script src="../js/catalog.js"></script>
 </body>
 </html>

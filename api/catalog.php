@@ -9,8 +9,28 @@ $pdo = DB_Connection::getInstance()->getPDO();
 $productModel = new Product($pdo);
 
 $sort = $_GET['sort'] ?? 'newest';
+$categories = $_GET['category'] ?? [];
+$colors = $_GET['color'] ?? [];
+$sizes = $_GET['size'] ?? [];
 
-$products = $productModel->getAll($sort);
+if (!is_array($categories)) {
+    $categories = [$categories];
+}
+
+if (!is_array($colors)) {
+    $colors = [$colors];
+}
+
+if (!is_array($sizes)) {
+    $sizes = [$sizes];
+}
+
+$products = $productModel->getAll(
+    $sort,
+    $categories,
+    $colors,
+    $sizes
+);
 
 echo json_encode([
     'success' => true,

@@ -1,5 +1,25 @@
 .product-image-wrapper {
     position: relative;
+    overflow: hidden;
+}
+
+.product-out-of-stock .product-image {
+    opacity: .35;
+}
+
+.out-of-stock-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #1f1f1f;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .filter-btn, .favourite-btn {
@@ -47,3 +67,4 @@ body, main {
 .filters-header {
     margin-bottom: 24px;
 }
+
