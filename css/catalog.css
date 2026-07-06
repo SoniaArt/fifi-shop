@@ -1,10 +1,31 @@
-.filter-btn {
+.product-image-wrapper {
+    position: relative;
+}
+
+.filter-btn, .favourite-btn {
     border: none;
     background: #FDFDFE;
 }
 
+.favourite-btn {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    z-index: 10;
+}
+
+.favourite-icon {
+    width: 1.2rem;       
+    height: 1.2rem;
+    opacity: 20%;
+}
+
 .filter-btn:hover {
     color: #5f5f5f;
+}
+
+.favourite-icon:hover{
+    opacity: 80%;
 }
 
 .filter-btn.dropdown-toggle::after {
@@ -21,4 +42,8 @@
 
 body, main {
     background: #FDFDFE;
+}
+
+.filters-header {
+    margin-bottom: 24px;
 }

@@ -27,6 +27,35 @@ $sortLabel = $productModel->getSortLabel($sort);
     <?php include '../includes/menu.php';?>
     <?php include '../includes/header.php';?>
 
+    <div class="forms" id="filterForm">
+        <div class="filters-header d-flex justify-content-between align-items-center gap-4">
+            <h3>Фильтры</h3>
+            <button class="form-close" id="filterClose">
+                <img src="/FIFI/images/cross_icon.png" alt="Крестик" class="close-icon">
+            </button>
+        </div>
+
+        <div class="filter-body d-flex flex-column gap-3">
+            <h4>Категория</h4>
+            <div id="filterCategories" class="filter-group d-flex flex-column justify-content-beetwen gap-3">
+            </div>
+                
+            <h4>Цвет</h4>
+            <div id="filterColors" class="filter-group d-flex flex-column justify-content-beetwen gap-3">
+            </div>
+
+            <h4>Размер</h4>
+            <div id="filterSizes" class="filter-group d-flex flex-column justify-content-beetwen gap-3">
+            </div>
+        </div>
+        
+        <div class="filter-footer d-flex flex-column justify-content-center gap-3">
+                <button class="btn btn-outline-dark" id="resetFilters">Сбросить</button>
+                <button class="btn btn-dark" id="applyFilters">Применить</button>
+        </div>
+    </div>
+
+
     <main class="page">
         <div class="catalog-header">
             <div class="d-flex justify-content-between">

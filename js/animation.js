@@ -57,10 +57,23 @@ $(document).ready(function() {
          $('.auth-tab').removeClass('active')
     });
 
+    $('#filterOpen').on('click', function(e) {
+        $('#filterForm').addClass('active');
+        $('.overlay').fadeIn(300);
+        $('html, body').addClass('form-open');
+    });
+
+    $('#filterClose').on('click', function(e) {
+        $('#filterForm').removeClass('active');
+        $('.overlay').fadeOut(300);
+        $('html, body').removeClass('form-open');
+    });
+
     $('.overlay').on('click', function() {
         $('#menu').fadeOut(300);
         $('#returnForm').removeClass('active'); 
         $('#authForm').removeClass('active');
+        $('#filterForm').removeClass('active');
         $('.overlay').fadeOut(300);
         $('html, body').removeClass('menu-open form-open');
     });
@@ -70,10 +83,10 @@ $(document).ready(function() {
             $('#menu').fadeOut(300);
             $('#returnForm').removeClass('active'); 
             $('#authForm').removeClass('active');
+            $('#filterForm').removeClass('active');
             $('.overlay').fadeOut(300);
             $('html, body').removeClass('menu-open form-open');
         }
     });
-
 
 });

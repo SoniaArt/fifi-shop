@@ -50,10 +50,13 @@ header{
     flex: 1;
 }
 
-.forms .btn-dark {
+.forms .btn-dark, .forms .btn-outline-dark {
     border-radius: 0;
     width: 80%;
     margin: auto auto 0; 
+}
+.forms .btn-dark:hover {
+background: #5f5f5f;
 }
 
 html.menu-open, html.form-open {
@@ -83,6 +86,21 @@ body.menu-open, body.form-open {
     box-shadow: none !important;
 }
 
+.filter-body {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin-bottom: 16px;
+}
+
+.filter-footer {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 16px;
+}
+
 .overlay{
     position: fixed;
     top: 0;
@@ -93,10 +111,6 @@ body.menu-open, body.form-open {
     z-index: 1001;
     display: none;
 }
-/* 
-.overlay.active {
-    display: block;
-} */
 
 body{
     font-family: Arial, Helvetica, sans-serif;
@@ -116,7 +130,7 @@ body{
     height: 1.5rem;
 }
 
-.menu-icon, .close-icon{
+.menu-icon, .close-icon {
     width: 1.2rem;       
     height: 1.2rem;
 }
