@@ -9,6 +9,7 @@ $pdo = DB_Connection::getInstance()->getPDO();
 $productModel = new Product($pdo);
 
 $sort = $_GET['sort'] ?? 'newest';
+$search = trim($_GET['search'] ?? '');
 $categories = $_GET['category'] ?? [];
 $colors = $_GET['color'] ?? [];
 $sizes = $_GET['size'] ?? [];
@@ -29,7 +30,8 @@ $products = $productModel->getAll(
     $sort,
     $categories,
     $colors,
-    $sizes
+    $sizes, 
+    $search
 );
 
 echo json_encode([

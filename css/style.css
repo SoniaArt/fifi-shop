@@ -135,6 +135,30 @@ body{
     height: 1.2rem;
 }
 
+.search-btn{
+    background:none;
+    border:none;
+    padding:0;
+}
+
+.search-input{
+    width:0;
+    opacity:0;
+    border:none;
+    outline:none;
+    border-bottom:1px solid #1E1E1E;
+    padding:6px 0;
+    transition:.3s;
+    background:transparent;
+    font-size:1.2rem;
+}
+
+.search-input.active{
+    width:220px;
+    opacity:1;
+    padding:6px 8px;
+}
+
 .footer-title {
     margin: 24px 0;
 }

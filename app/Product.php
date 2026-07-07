@@ -6,7 +6,7 @@ class Product {
         $this->pdo = $pdo;
     }
     
-    public function getAll( $sort = 'newest', $categories = [], $colors = [], $sizes = [] ) {
+    public function getAll( $sort = 'newest', $categories = [], $colors = [], $sizes = [],  $search='') {
         switch ($sort) {
             case 'price_asc':
                 $orderBy = 'price ASC';
@@ -72,7 +72,20 @@ class Product {
             )
         ";
         }    
-        
+
+        if ($search !== '') {
+            $sql .= "
+                AND (
+                    LOWER(p.name) LIKE LOWER(?)
+                    OR LOWER(p.color) LIKE LOWER(?)
+                )
+            ";
+
+            $like = '%' . $search . '%';
+            $params[] = $like;
+            $params[] = $like;
+        }      
+
         $sql .= "
             ORDER BY
                 CASE

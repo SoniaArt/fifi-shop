@@ -1,5 +1,6 @@
 window.catalogProducts = [];
 window.allProducts = [];
+let searchQuery = '';
 
 function renderProducts(products) {
     const productGrid = document.getElementById('productGrid');
@@ -53,6 +54,10 @@ async function loadProducts(params = {}) {
         params.size.forEach(item => {
             query.append('size[]', item);
         });
+    }
+
+    if (searchQuery) {
+      query.append('search', searchQuery);
     }
 
     const response = await fetch('../api/catalog.php?' + query.toString());
@@ -139,3 +144,42 @@ document.addEventListener('click', function(e) {
         console.log('Товар #' + id + ' добавлен в избранное (заглушка)');
     }
 });
+
+const searchBtn = document.getElementById('searchBtn');
+const searchInput = document.getElementById('searchInput');
+
+if (searchBtn) {
+    searchBtn.addEventListener('click', () => {
+        if (!searchInput.classList.contains('active')) {
+            searchInput.classList.add('active');
+            searchInput.focus();
+            return;
+        }
+
+        query = searchInput.value.trim();
+        if (query) {
+            searchQuery = query;
+            loadProducts();
+            searchInput.classList.remove('active');
+        } else {
+            searchInput.focus();
+        }
+        
+    });
+
+    searchInput.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            searchInput.classList.remove('active');
+            searchInput.value = '';
+            searchQuery = '';
+            loadProducts();
+            return;
+        }
+
+        if (e.key === 'Enter') {
+            searchQuery = searchInput.value.trim();
+            loadProducts();
+            searchInput.classList.remove('active');
+        }        
+    });
+}

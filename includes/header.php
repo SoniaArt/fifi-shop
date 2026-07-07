@@ -7,9 +7,13 @@
             <a href="/FIFI/index.php" class="logo">FIFI</a>
         </div>
         <div class="d-flex align-items-center gap-4">
-            <a href="#">
-                <img src="/FIFI/images/search_icon.png" alt="Поиск" class="header-icon">
-            </a>
+            <div class="search-box d-flex align-items-center">
+                <input type="text" id="searchInput" class="search-input" placeholder="Поиск...">
+                <button id="searchBtn" class="search-btn">
+                    <img src="/FIFI/images/search_icon.png" alt="Поиск" class="header-icon">
+                </button>
+            </div>
+            
             <a href="/FIFI/pages/favourites.php">
                 <img src="/FIFI/images/favourites_icon.png" alt="Избранное" class="header-icon">
             </a>
