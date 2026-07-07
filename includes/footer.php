@@ -35,5 +35,3 @@
     <script src="/FIFI/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/FIFI/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/FIFI/js/animation.js"></script>
-    <script src="/FIFI/js/Filter.js"></script>
-    <script src="/FIFI/js/catalog.js"></script>

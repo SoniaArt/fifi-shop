@@ -89,5 +89,7 @@ $sortLabel = $productModel->getSortLabel($sort);
     </main>
 
     <?php include '../includes/footer.php';?>
+    <script src="/FIFI/js/Filter.js"></script>
+    <script src="/FIFI/js/catalog.js"></script>
 </body>
 </html>

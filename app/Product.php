@@ -139,13 +139,16 @@ class Product {
     }
 
     public function getImages($productId) {
+
         $stmt = $this->pdo->prepare("
-            SELECT * FROM product_images 
-            WHERE product_id = ? 
+            SELECT image_path
+            FROM product_images
+            WHERE product_id = ?
             ORDER BY id
         ");
+
         $stmt->execute([$productId]);
-        return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
     public function getSizes($productId) {

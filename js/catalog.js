@@ -13,18 +13,20 @@ function renderProducts(products) {
         html += `
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="product-card ${stockClass}">
-                    <div class="product-image-wrapper">
-                        <img src="../${product.image}" class="product-image img-fluid" alt="${product.name}">
-                        <button class="favourite-btn" data-id="${product.id}">
-                            <img src="../images/favourites_icon.png" alt="Избранное" class="favourite-icon">
-                        </button>
-                        ${!inStock ? '<span class="out-of-stock-badge">Нет в наличии</span>' : ''}
-                    </div>
+                    <a href="product.php?id=${product.id}" class="product-link">
+                        <div class="product-image-wrapper">
+                            <img src="../${product.image}" class="product-image img-fluid" alt="${product.name}">
+                            <button class="favourite-btn" data-id="${product.id}">
+                                <img src="../images/favourites_icon.png" alt="Избранное" class="favourite-icon">
+                            </button>
+                            ${!inStock ? '<span class="out-of-stock-badge">Нет в наличии</span>' : ''}
+                        </div>
+                    </a>
                     <div class="text-center">
                         <p>${product.name}</p>
                         <p>${Number(product.price).toLocaleString('ru-RU')} ₽</p>
                     </div>
-                </div>
+                </div>  
             </div>
         `;
     });
@@ -138,6 +140,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 document.addEventListener('click', function(e) {
     if (e.target.closest('.favourite-btn')) {
+        e.preventDefault();
+        e.stopPropagation();
+        
         const btn = e.target.closest('.favourite-btn');
         const id = btn.dataset.id;
         btn.classList.toggle('active');
