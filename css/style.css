@@ -203,6 +203,44 @@ dd, .menu-list li{
     display: flex;
 }
 
+body.vh-100 .forms.active {
+    display: flex !important;
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    min-height: 300px;
+    padding: 30px;
+    border: 1px solid #EEEEEE;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+body.vh-100 .forms.active .form-group .form-control {
+    border: none;
+    border-bottom: 1px solid #b2b2b2;
+    border-radius: 0;
+    padding: 10px 0;
+    background: transparent;
+}
+
+body.vh-100 .forms.active .form-group .form-control:focus {
+    border-bottom-color: #1E1E1E;
+    box-shadow: none !important;
+    outline: none;
+}
+
+body.vh-100 .forms.active .btn-dark {
+    border-radius: 0;
+    width: 100%;
+    padding: 12px;
+    font-weight: 600;
+}
+
+body.vh-100 .forms.active .alert {
+    border-radius: 0;
+}
+
 @media screen and (max-width: 767px) {
     .menu {
         width: 250px;

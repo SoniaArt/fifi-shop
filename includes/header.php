@@ -1,3 +1,10 @@
+<?php
+require_once dirname(__DIR__) . '/app/Auth.php';
+$auth = new Auth();
+$is_logged_in = $auth->checkAuth();
+$user = $is_logged_in ? $auth->getCurrentUser() : null;
+?>
+
 <header class="container-fluid">
     <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center gap-4">
@@ -34,61 +41,17 @@
         </button>
     </div>
 
-    <div class="d-flex flex-row justify-content-center gap-4">
-        <p class="auth-tab active" data-tab="login">Авторизация</p>
-        <p class="auth-tab" data-tab="register">Регистрация</p>
-    </div>
-    
-    <div class="auth-panel active" id="loginPanel">
-        <form class="d-flex flex-column justify-content-between gap-4">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="E-mail или телефон" required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Пароль" required>
-            </div>
-
-            <a href="#" class="form-link" id="showResetLink">Забыли пароль?</a>
-            
-            <button type="submit" class="btn btn-dark ">
-                ВОЙТИ
-            </button>
-        </form>
-    </div>
-
-    <div class="auth-panel" id="registerPanel">
-        <form class="d-flex flex-column justify-content-between gap-4">
-            <div class="form-group">
-                <input type="email" class="form-control" placeholder="E-mail" required>
-            </div>
-            <div class="form-group">
-                <input type="tel" class="form-control" placeholder="Номер телефона" required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Пароль" required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Подтвердите пароль" required>
-            </div>
-            
-            <button type="submit" class="btn btn-dark ">
-                ЗАРЕГИСТРИРОВАТЬСЯ
-            </button>
-        </form>
-    </div>
-
-    <div class="auth-panel" id="resetPanel">
-        <form class="d-flex flex-column justify-content-between gap-4">
-            <h2 class="text-center">Восстановление пароля</h2>
-
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="E-mail или телефон" required>
-            </div>
-            
-            <button type="submit" class="btn btn-dark ">
-                ВОССТАНОВИТЬ
-            </button>
-        </form>
-    </div>
-
-</div>  
+    <?php if (!$is_logged_in): ?>
+        <div class="d-flex flex-row justify-content-center gap-4">
+            <p class="auth-tab active" data-tab="login">Авторизация</p>
+            <p class="auth-tab" data-tab="register">Регистрация</p>
+        </div>
+        
+        <?php include __DIR__ . '/auth/login.php'; ?>
+        <?php include __DIR__ . '/auth/register.php'; ?>
+        <?php include __DIR__ . '/auth/reset.php'; ?>
+        
+    <?php else: ?>
+        <?php include __DIR__ . '/auth/profile.php'; ?>
+    <?php endif; ?>
+</div>

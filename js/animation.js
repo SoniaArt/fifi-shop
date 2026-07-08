@@ -88,5 +88,21 @@ $(document).ready(function() {
             $('html, body').removeClass('menu-open form-open');
         }
     });
-
 });
+
+window.closeAuthForm = function() {
+    $('#authForm').removeClass('active');
+    $('.overlay').fadeOut(300);
+    $('html, body').removeClass('form-open');
+};
+
+window.reloadPage = function() {
+    closeAuthForm();
+    setTimeout(() => {
+        location.reload();
+    }, 300);
+};
+
+window.showError = function(message) {
+    alert(message);
+};

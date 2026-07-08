@@ -10,6 +10,5 @@
     <ul class="menu-list">
         <li><a href="/FIFI/pages/catalog.php">Каталог товаров</a></li>
         <li><a href="/FIFI/pages/discounts.php">АКЦИИ</a></li>
-        <li><a href="/FIFI/pages/gift_cards.php">Подарочные карты</a></li>
     </ul>
 </div>

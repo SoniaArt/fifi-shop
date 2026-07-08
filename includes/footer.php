@@ -18,11 +18,6 @@
                     <a href="/FIFI/pages/about.php" class="footer-link">О бренде</a>
                 </dd>                
             </dl>
-            <!-- <dl>
-                <dt class="footer-title">КОНТАКТЫ</dt>
-                <dd><a href="/FIFI/pages/mailing.php" class="footer-link">Рассылка</a></dd>
-                <dd><a href="/FIFI/pages/feedback.php" class="footer-link">Обратная связь</a></dd>  
-            </dl> -->
             <dl>
                 <dt class="footer-title">Служба поддержки</dt>
                 <dd>
@@ -35,3 +30,5 @@
     <script src="/FIFI/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/FIFI/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/FIFI/js/animation.js"></script>
+    <script type="module" src="/FIFI/js/auth.js"></script>
+    <script src="/FIFI/js/reset_password.js"></script>
