@@ -15,6 +15,7 @@ function getUrlParams() {
 function renderProducts(products) {
     const productGrid = document.getElementById('productGrid');
     let html = '';
+    const isAdmin = window.isAdmin || false;
 
     products.forEach(product => {
         const inStock = product.quantity > 0;
@@ -30,6 +31,16 @@ function renderProducts(products) {
                                 <img src="../images/favourites_icon.png" alt="Избранное" class="favourite-icon">
                             </button>
                             ${!inStock ? '<span class="out-of-stock-badge">Нет в наличии</span>' : ''}
+                            ${isAdmin ? `
+                                <div class="admin-actions position-absolute bottom-0 start-0 w-100 p-2 d-flex gap-1" style="z-index: 5; background: rgba(253, 253, 253, 0.9);">
+                                    <a href="admin_product.php?id=${product.id}" class="btn btn-sm admin-edit-btn flex-grow-1" style="border: 1px solid #1E1E1E; color: #1E1E1E; background: transparent; font-size: 12px; padding: 4px 8px; border-radius: 0; text-decoration: none; text-align: center;">
+                                        Редактировать
+                                    </a>
+                                    <button class="btn btn-sm admin-delete-btn" data-id="${product.id}" style="border: 1px solid #dc3545; color: #dc3545; background: transparent; font-size: 12px; padding: 4px 8px; border-radius: 0; cursor: pointer;">
+                                        Удалить
+                                    </button>
+                                </div>
+                            ` : ''}
                         </div>
                     </a>
                     <div class="text-center">
@@ -42,6 +53,38 @@ function renderProducts(products) {
     });
 
     productGrid.innerHTML = html;
+    
+    if (isAdmin) {
+        document.querySelectorAll('.admin-delete-btn').forEach(btn => {
+            btn.onclick = async function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (!confirm('Удалить товар?')) return;
+                
+                const id = this.dataset.id;
+                try {
+                    const response = await fetch('/FIFI/api/admin_products.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'delete',
+                            id: id
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    if (data.success) {
+                        loadProducts();
+                    } else {
+                        alert(data.error || 'Ошибка удаления');
+                    }
+                } catch (error) {
+                    alert('Ошибка при удалении');
+                }
+            };
+        });
+    }
 }
 
 async function loadProducts(params = {}) {
@@ -53,7 +96,6 @@ async function loadProducts(params = {}) {
         params.category.forEach(item => {
             query.append('category[]', item);
         });
-
     }
 
     if (params.color) {
@@ -92,7 +134,6 @@ async function loadProducts(params = {}) {
 }
 
 async function loadFilterOptions() {
-
     const categoriesContainer = document.getElementById('filterCategories');
     const colorsContainer = document.getElementById('filterColors');
     const sizesContainer = document.getElementById('filterSizes');
@@ -128,11 +169,19 @@ async function loadFilterOptions() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    initFavouriteButtons();
+    try {
+        const response = await fetch('/FIFI/api/auth.php?action=checkAdmin');
+        const data = await response.json();
+        window.isAdmin = data.isAdmin || false;
+    } catch (e) {
+        window.isAdmin = false;
+    }
     
+    initFavouriteButtons();
     await loadFavouriteIds();
     await loadFilterOptions();
     await loadProducts();
+    
     const filter = new Filter(loadProducts);
     filter.updateDisabled();
 
@@ -151,6 +200,44 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         });
     });
+    
+    if (window.isAdmin) {
+        const catalogHeader = document.querySelector('.catalog-header');
+        if (catalogHeader) {
+            if (!catalogHeader.querySelector('.add-product-wrapper')) {
+                const addWrapper = document.createElement('div');
+                addWrapper.className = 'add-product-wrapper';
+                addWrapper.style.cssText = `
+                    margin-top: 16px;
+                    text-align: right;
+                `;
+                addWrapper.innerHTML = `
+                    <a href="admin_product.php" class="btn add-product-btn" style="
+                        border: 1px solid #1E1E1E;
+                        color: #1E1E1E;
+                        background: transparent;
+                        border-radius: 0;
+                        padding: 8px 20px;
+                        font-size: 14px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        display: inline-block;
+                    ">+ Добавить товар</a>
+                `;
+                catalogHeader.appendChild(addWrapper);
+                
+                const link = addWrapper.querySelector('.add-product-btn');
+                link.onmouseover = function() {
+                    this.style.background = '#1E1E1E';
+                    this.style.color = '#FDFDFD';
+                };
+                link.onmouseout = function() {
+                    this.style.background = 'transparent';
+                    this.style.color = '#1E1E1E';
+                };
+            }
+        }
+    }
 });
 
 document.addEventListener('favouritesUpdated', function() {

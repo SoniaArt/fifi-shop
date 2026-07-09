@@ -19,7 +19,7 @@ export function createProductCard(product, options = {}) {
         <a href="/FIFI/pages/product.php?id=${id}"
            class="side-product-image-link">
             <div class="side-product-image-wrapper">
-                <img src="../${product.image}" class="side-product-image" alt="${product.name}">
+                <img src="/FIFI/${product.image}" class="side-product-image" alt="${product.name}">
                 ${!inStock ? '<span class="out-of-stock-badge">Нет в наличии</span>' : ''}
             </div>
         </a>
@@ -40,7 +40,7 @@ export function createProductCard(product, options = {}) {
         ${
             favourite ? `
             <button class="favourite-btn ${isFavourite(id) ? 'active' : ''} side-product-action" data-id="${id}">
-                <img src="../images/favourites_icon.png" class="favourite-icon" alt="Избранное">
+                <img src="/FIFI/images/favourites_icon.png" class="favourite-icon" alt="Избранное">
             </button> 
             ` : ''
         }
