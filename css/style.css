@@ -293,6 +293,46 @@ body.vh-100 .forms.active .alert {
 .form-group .form-control {
     background: #FDFDFD;
 }
+.promo-block {
+    border: 1px solid #e0e0e0;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    background: #FDFDFE;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    transition: background 0.2s ease;
+}
+
+.promo-block:hover {
+    background: #f5f5f5;
+}
+
+.promo-block .month {
+    font-weight: 700;
+    color: #1E1E1E;
+    min-width: 90px;
+    font-size: 15px;
+}
+
+.promo-block .desc {
+    flex: 1;
+    padding: 0 16px;
+    min-width: 150px;
+    color: #5f5f5f;
+}
+
+.promo-block .discount {
+    font-weight: 700;
+    color: #1E1E1E;
+    background: #fff;
+    padding: 4px 14px;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
 @media screen and (max-width: 767px) {
     .menu {
         width: 250px;

@@ -175,13 +175,21 @@ const searchInput = document.getElementById('searchInput');
 if (searchBtn) {
     function performSearch(query) {
         query = query.trim();
-        if (query) {
-            window.location.href = `/FIFI/pages/catalog.php?search=${encodeURIComponent(query)}`;
+
+        // Если запрос пустой — просто переходим на каталог без параметров
+        if (!query) {
+            // Убираем активный класс и очищаем поле
             searchInput.classList.remove('active');
             searchInput.value = '';
-        } else {
-            searchInput.focus();
+            // Переходим на каталог без параметров (показываем все товары)
+            window.location.href = '/FIFI/pages/catalog.php';
+            return;
         }
+
+        // Если есть запрос — переходим с параметром
+        window.location.href = `/FIFI/pages/catalog.php?search=${encodeURIComponent(query)}`;
+        searchInput.classList.remove('active');
+        searchInput.value = '';
     }
 
     searchBtn.addEventListener('click', () => {
@@ -191,7 +199,7 @@ if (searchBtn) {
             return;
         }
 
-        const query = searchInput.value.trim();
+        const query = searchInput.value;
         performSearch(query);
     });
 
@@ -199,11 +207,13 @@ if (searchBtn) {
         if (e.key === 'Escape') {
             searchInput.classList.remove('active');
             searchInput.value = '';
+            // При ESC показываем все товары
+            window.location.href = '/FIFI/pages/catalog.php';
             return;
         }
 
         if (e.key === 'Enter') {
-            const query = searchInput.value.trim();
+            const query = searchInput.value;
             performSearch(query);
         }        
     });
