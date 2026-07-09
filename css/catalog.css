@@ -24,7 +24,7 @@
 
 .filter-btn, .favourite-btn {
     border: none;
-    background: #FDFDFE;
+    background: #FDFDFD;
 }
 
 .favourite-btn {
@@ -65,7 +65,7 @@
 }
 
 body, main {
-    background: #FDFDFE;
+    background: #FDFDFD;
 }
 
 .filters-header {

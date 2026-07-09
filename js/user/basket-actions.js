@@ -13,8 +13,8 @@ export function initBasketButtons() {
             e.stopPropagation();
             
             const productId = increaseBtn.dataset.id;
-            const sizeId = increaseBtn.dataset.size;
-
+            const sizeId = increaseBtn.dataset.sizeId; // Исправлено: sizeId вместо size
+            
             await updateBasket(productId, sizeId, 'add');
 
             const { initBasket } = await import('./basket.js');
@@ -29,8 +29,8 @@ export function initBasketButtons() {
             e.stopPropagation();
             
             const productId = decreaseBtn.dataset.id;
-            const sizeId = decreaseBtn.dataset.size;
-
+            const sizeId = decreaseBtn.dataset.sizeId; // Исправлено: sizeId вместо size
+            
             await updateBasket(productId, sizeId, 'remove');
 
             const { initBasket } = await import('./basket.js');
@@ -42,34 +42,48 @@ export function initBasketButtons() {
 }
 
 async function updateBasket(productId, sizeId, action) {
-    const response = await fetch('/FIFI/api/basket.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            action: action,
-            product_id: productId,
-            size_id: sizeId
-        })
-    });
+    try {
+        const response = await fetch('/FIFI/api/basket.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                action: action,
+                product_id: productId,
+                size_id: sizeId // Теперь передаётся число, а не строка
+            })
+        });
 
-    const data = await response.json();
+        const data = await response.json();
 
-    if (!data.success) {
-        if (data.auth === false) {
-            alert('Сначала войдите в аккаунт');
-        } else {
-            alert('Ошибка при обновлении корзины');
+        if (!data.success) {
+            if (data.auth === false) {
+                alert('Сначала войдите в аккаунт');
+            } else if (data.error) {
+                alert(data.error);
+            } else {
+                alert('Ошибка при обновлении корзины');
+            }
         }
+        
+        return data;
+    } catch (error) {
+        console.error('Error updating basket:', error);
+        alert('Ошибка при обновлении корзины');
+        return { success: false };
     }
-    
-    return data;
 }
 
 export function updateBasketControls() {
     document.querySelectorAll('.basket-increase').forEach(btn => {
-        const quantity = parseInt(btn.closest('.basket-controls').querySelector('.basket-quantity').textContent);
+        const controls = btn.closest('.basket-controls');
+        if (!controls) return;
+        
+        const quantitySpan = controls.querySelector('.basket-quantity');
+        if (!quantitySpan) return;
+        
+        const quantity = parseInt(quantitySpan.textContent);
         const maxQuantity = parseInt(btn.dataset.maxQuantity || 0);
         
         if (maxQuantity > 0 && quantity >= maxQuantity) {

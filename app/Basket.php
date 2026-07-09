@@ -70,9 +70,11 @@ class Basket {
             $stmt = $this->pdo->prepare("
                 UPDATE cart
                 SET quantity = quantity + 1
-                WHERE id = ?
+                WHERE user_id = ?
+                AND product_id = ?
+                AND size_id = ?
             ");
-            $stmt->execute([$existing['id']]);
+            $stmt->execute([$userId, $productId, $sizeId]);
         } else {
             $stmt = $this->pdo->prepare("
                 INSERT INTO cart (user_id, product_id, size_id, quantity)

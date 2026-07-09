@@ -74,3 +74,12 @@ $user = $is_logged_in ? $auth->getCurrentUser() : null;
     </div>
     <?php include __DIR__ . '/user/basket.php'; ?>
 </div>
+
+<div class="forms" id="checkoutForm">
+    <div class="d-flex justify-content-end">
+        <button class="form-close" id="checkoutClose">
+            <img src="/FIFI/images/cross_icon.png" alt="Закрыть" class="close-icon">
+        </button>
+    </div>
+    <?php include __DIR__ . '/user/checkout.php'; ?>
+</div>

@@ -104,6 +104,7 @@ $(document).ready(function() {
         $('#filterForm').removeClass('active');
         $('#favouritesForm').removeClass('active');
         $('#basketForm').removeClass('active');
+        $('#checkoutForm').removeClass('active');
         $('.overlay').fadeOut(300);
         $('html, body').removeClass('menu-open form-open');
     });
@@ -116,6 +117,7 @@ $(document).ready(function() {
             $('#filterForm').removeClass('active');
             $('#favouritesForm').removeClass('active');
             $('#basketForm').removeClass('active');
+            $('#checkoutForm').removeClass('active');
             $('.overlay').fadeOut(300);
             $('html, body').removeClass('menu-open form-open');
         }
@@ -149,3 +151,60 @@ $('#basketOpen').on('click', function(e) {
         module.initBasket();
     });
 });
+
+$('#checkoutBtn').on('click', function(e) {
+    e.preventDefault();
+    if ($(this).prop('disabled')) return;
+    
+    $('#checkoutForm').addClass('active');
+    $('.overlay').fadeIn(300);
+    $('html, body').addClass('form-open');
+    
+    import('./user/checkout.js').then(m => m.initCheckout());
+});
+
+$('#checkoutClose').on('click', function() {
+    $('#checkoutForm').removeClass('active');
+    $('.overlay').fadeOut(300);
+    $('html, body').removeClass('form-open');
+});
+
+const searchBtn = document.getElementById('searchBtn');
+const searchInput = document.getElementById('searchInput');
+
+if (searchBtn) {
+    function performSearch(query) {
+        query = query.trim();
+        if (query) {
+            window.location.href = `/FIFI/pages/catalog.php?search=${encodeURIComponent(query)}`;
+            searchInput.classList.remove('active');
+            searchInput.value = '';
+        } else {
+            searchInput.focus();
+        }
+    }
+
+    searchBtn.addEventListener('click', () => {
+        if (!searchInput.classList.contains('active')) {
+            searchInput.classList.add('active');
+            searchInput.focus();
+            return;
+        }
+
+        const query = searchInput.value.trim();
+        performSearch(query);
+    });
+
+    searchInput.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            searchInput.classList.remove('active');
+            searchInput.value = '';
+            return;
+        }
+
+        if (e.key === 'Enter') {
+            const query = searchInput.value.trim();
+            performSearch(query);
+        }        
+    });
+}

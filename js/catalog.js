@@ -5,6 +5,13 @@ window.catalogProducts = [];
 window.allProducts = [];
 let searchQuery = '';
 
+function getUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        search: params.get('search') || ''
+    };
+}
+
 function renderProducts(products) {
     const productGrid = document.getElementById('productGrid');
     let html = '';
@@ -61,8 +68,10 @@ async function loadProducts(params = {}) {
         });
     }
 
-    if (searchQuery) {
-      query.append('search', searchQuery);
+    const urlParams = getUrlParams();
+    const search = searchQuery || urlParams.search;
+    if (search) {
+        query.append('search', search);
     }
 
     const response = await fetch('../api/catalog.php?' + query.toString());

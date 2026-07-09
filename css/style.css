@@ -9,12 +9,16 @@ html {
     overflow-y: scroll;
 }
 
+body, main {
+    background: #FDFDFD;
+}
+
 header{
     padding: 10px;
     position: fixed;
     top: 0;       
     left: 0; 
-    background: #FDFDFE; 
+    background: #FDFDFD; 
     z-index: 1000;
 }
 
@@ -25,7 +29,7 @@ header{
 
 .menu, .forms {
     position: fixed;
-    background: #FDFDFE; 
+    background: #FDFDFD; 
     height: 100vh;
     width: 25%;
     left: 0px;
@@ -223,7 +227,7 @@ body.vh-100 .forms.active .form-group .form-control {
     border-bottom: 1px solid #b2b2b2;
     border-radius: 0;
     padding: 10px 0;
-    background: transparent;
+    background: #FDFDFD;
 }
 
 body.vh-100 .forms.active .form-group .form-control:focus {
@@ -286,6 +290,9 @@ body.vh-100 .forms.active .alert {
     color: #6c757d;
 }
 
+.form-group .form-control {
+    background: #FDFDFD;
+}
 @media screen and (max-width: 767px) {
     .menu {
         width: 250px;
