@@ -1,0 +1,103 @@
+#favouritesList {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.side-product-card {
+    display:flex;
+    align-items:center;
+    position:relative;
+    gap:16px;
+    padding:12px 8px;
+    border-bottom:1px solid #eeeeee;
+}
+
+.side-product-image-link {
+    flex-shrink:0;
+}
+
+.side-product-image {
+    width:80px;
+    height:100px;
+    object-fit:cover;
+}
+
+.side-product-info {
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    flex:1;
+}
+
+.side-product-name {
+    color:#1E1E1E;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.side-product-price {
+    font-size:14px;
+    color:#5f5f5f;
+}
+
+.side-product-action {
+    position:absolute;
+    right:8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+.side-product-action.favourite-btn {
+    background:none;
+    border:none;
+    cursor: pointer;    
+}
+
+.side-product-action .favourite-icon {
+    width:20px;
+    height:20px;
+    opacity:100%;
+    transition: opacity .2s ease;
+}
+
+.side-product-action.favourite-btn:hover .favourite-icon {
+    opacity: 80%;
+}
+
+.remove-product-btn {
+    border:none;
+    background:none;    
+    cursor: pointer;
+}
+
+.remove-product-icon {
+    width: 18px;
+    height: 18px;
+    opacity: 40%;
+    transition: opacity .2s ease;
+}
+
+.remove-product-btn:hover .remove-product-icon {
+    opacity: 80%;
+}
+
+.side-product-image-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.side-product-card .out-of-stock-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #1f1f1f;
+    font-size: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    z-index: 2;
+    pointer-events: none;
+}

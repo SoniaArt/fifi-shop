@@ -1,3 +1,6 @@
+import {loadFavouriteIds, isFavourite} from './user/favourites.js';
+import {initFavouriteButtons} from './user/favourite-actions.js';
+
 window.catalogProducts = [];
 window.allProducts = [];
 let searchQuery = '';
@@ -16,7 +19,7 @@ function renderProducts(products) {
                     <a href="product.php?id=${product.id}" class="product-link">
                         <div class="product-image-wrapper">
                             <img src="../${product.image}" class="product-image img-fluid" alt="${product.name}">
-                            <button class="favourite-btn" data-id="${product.id}">
+                            <button class="favourite-btn ${isFavourite(product.id) ? 'active' : ''}" data-id="${product.id}">
                                 <img src="../images/favourites_icon.png" alt="Избранное" class="favourite-icon">
                             </button>
                             ${!inStock ? '<span class="out-of-stock-badge">Нет в наличии</span>' : ''}
@@ -116,6 +119,9 @@ async function loadFilterOptions() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+    initFavouriteButtons();
+    
+    await loadFavouriteIds();
     await loadFilterOptions();
     await loadProducts();
     const filter = new Filter(loadProducts);
@@ -138,53 +144,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 });
 
-document.addEventListener('click', function(e) {
-    if (e.target.closest('.favourite-btn')) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const btn = e.target.closest('.favourite-btn');
-        const id = btn.dataset.id;
-        btn.classList.toggle('active');
-        console.log('Товар #' + id + ' добавлен в избранное (заглушка)');
-    }
-});
-
-const searchBtn = document.getElementById('searchBtn');
-const searchInput = document.getElementById('searchInput');
-
-if (searchBtn) {
-    searchBtn.addEventListener('click', () => {
-        if (!searchInput.classList.contains('active')) {
-            searchInput.classList.add('active');
-            searchInput.focus();
-            return;
-        }
-
-        query = searchInput.value.trim();
-        if (query) {
-            searchQuery = query;
-            loadProducts();
-            searchInput.classList.remove('active');
+document.addEventListener('favouritesUpdated', function() {
+    document.querySelectorAll('#productGrid .favourite-btn').forEach(btn => {
+        const productId = btn.dataset.id;
+        if (isFavourite(productId)) {
+            btn.classList.add('active');
         } else {
-            searchInput.focus();
+            btn.classList.remove('active');
         }
-        
     });
-
-    searchInput.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-            searchInput.classList.remove('active');
-            searchInput.value = '';
-            searchQuery = '';
-            loadProducts();
-            return;
-        }
-
-        if (e.key === 'Enter') {
-            searchQuery = searchInput.value.trim();
-            loadProducts();
-            searchInput.classList.remove('active');
-        }        
-    });
-}
+});

@@ -1,3 +1,5 @@
+@import url("favourites.css");
+
 * {
     margin: 0;
     padding: 0;
@@ -239,6 +241,49 @@ body.vh-100 .forms.active .btn-dark {
 
 body.vh-100 .forms.active .alert {
     border-radius: 0;
+}
+
+#basketList .basket-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+#basketList .basket-controls button {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ddd;
+    background: #f8f8f8;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+}
+
+#basketList .basket-controls button:hover:not(:disabled) {
+    background: #e0e0e0;
+}
+
+#basketList .basket-controls button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+#basketList .basket-controls .basket-quantity {
+    min-width: 24px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#basketList .side-product-size {
+    font-size: 0.9rem;
+    color: #6c757d;
 }
 
 @media screen and (max-width: 767px) {

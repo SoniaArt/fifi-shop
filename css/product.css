@@ -30,10 +30,14 @@ main{
 .favourite-btn {
     border: none;
     background: transparent;
+    opacity: 20%;
+}
+.favourite-btn:hover {
+    opacity: 100%;
 }
 
-.favourite-btn:hover {
-    opacity: .75;
+.favourite-btn.active{
+    opacity: 100%;
 }
 
 .product-gallery {

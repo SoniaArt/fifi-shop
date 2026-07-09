@@ -21,10 +21,10 @@ $user = $is_logged_in ? $auth->getCurrentUser() : null;
                 </button>
             </div>
             
-            <a href="/FIFI/pages/favourites.php">
+            <a href="#" id="favouritesOpen">
                 <img src="/FIFI/images/favourites_icon.png" alt="Избранное" class="header-icon">
             </a>
-            <a href="/FIFI/pages/basket.php">
+            <a href="#" id="basketOpen">
                 <img src="/FIFI/images/basket_icon.png" alt="Корзина" class="header-icon">
             </a>
             <a href="#" id="authFormOpen">
@@ -54,4 +54,23 @@ $user = $is_logged_in ? $auth->getCurrentUser() : null;
     <?php else: ?>
         <?php include __DIR__ . '/auth/profile.php'; ?>
     <?php endif; ?>
+</div>
+
+<div class="forms" id="favouritesForm">
+    <div class="d-flex justify-content-end">
+        <button class="form-close" id="favouritesClose">
+            <img src="/FIFI/images/cross_icon.png" alt="Закрыть" class="close-icon">
+        </button>
+    </div>
+    <?php include __DIR__ . '/user/favourites.php'; ?>
+</div>
+
+
+<div class="forms" id="basketForm">
+    <div class="d-flex justify-content-end">
+        <button class="form-close" id="basketClose">
+            <img src="/FIFI/images/cross_icon.png" alt="Закрыть" class="close-icon">
+        </button>
+    </div>
+    <?php include __DIR__ . '/user/basket.php'; ?>
 </div>

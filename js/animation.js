@@ -69,21 +69,53 @@ $(document).ready(function() {
         $('html, body').removeClass('form-open');
     });
 
+    $('#favouritesOpen').on('click', function(e) {
+        e.preventDefault();
+        $('#favouritesForm').addClass('active');
+        $('.overlay').fadeIn(300);
+        $('html, body').addClass('form-open');
+    });
+
+
+    $('#basketOpen').on('click', function(e) {
+        e.preventDefault();
+        $('#basketForm').addClass('active');
+        $('.overlay').fadeIn(300);
+        $('html, body').addClass('form-open');
+    });
+
+    $('#favouritesClose').on('click', function(){
+        $('#favouritesForm').removeClass('active');
+        $('.overlay').fadeOut(300);
+        $('html, body').removeClass('form-open');
+    });
+
+
+    $('#basketClose').on('click', function(){
+        $('#basketForm').removeClass('active');
+        $('.overlay').fadeOut(300);
+        $('html, body').removeClass('form-open');
+    });
+
     $('.overlay').on('click', function() {
         $('#menu').fadeOut(300);
         $('#returnForm').removeClass('active'); 
         $('#authForm').removeClass('active');
         $('#filterForm').removeClass('active');
+        $('#favouritesForm').removeClass('active');
+        $('#basketForm').removeClass('active');
         $('.overlay').fadeOut(300);
         $('html, body').removeClass('menu-open form-open');
     });
 
     $(document).on('keydown', function(e) {
-        if (e.key === 'Escape' && $('#menu').is(':visible')) {
+        if (e.key === 'Escape') {
             $('#menu').fadeOut(300);
             $('#returnForm').removeClass('active'); 
             $('#authForm').removeClass('active');
             $('#filterForm').removeClass('active');
+            $('#favouritesForm').removeClass('active');
+            $('#basketForm').removeClass('active');
             $('.overlay').fadeOut(300);
             $('html, body').removeClass('menu-open form-open');
         }
@@ -106,3 +138,14 @@ window.reloadPage = function() {
 window.showError = function(message) {
     alert(message);
 };
+
+$('#basketOpen').on('click', function(e) {
+    e.preventDefault();
+    $('#basketForm').addClass('active');
+    $('.overlay').fadeIn(300);
+    $('html, body').addClass('form-open');
+
+    import('./user/basket.js').then(module => {
+        module.initBasket();
+    });
+});

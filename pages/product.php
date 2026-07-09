@@ -25,6 +25,6 @@ $id = $_GET['id'] ?? 0;
     </main>
 
     <?php include '../includes/footer.php';?>
-    <script src="../js/product.js"></script>
+    <script type="module" src="../js/product.js"></script>
 </body>
 </html>

@@ -40,6 +40,10 @@
     opacity: 20%;
 }
 
+.favourite-btn.active .favourite-icon {
+    opacity: 100%;
+}
+
 .filter-btn:hover {
     color: #5f5f5f;
 }
